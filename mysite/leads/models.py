@@ -20,7 +20,7 @@ class Razze(models.Model):
 
 
 class Cani(models.Model):
-    nome_cane = models.CharField(max_length=20)
+    nome_cane = models.CharField(max_length=20, null=True,  blank=True)
     razza_cane = models.ForeignKey("Razze", null=True, blank=True, on_delete=models.SET_NULL)
     class Meta:  
         db_table = "cani" 

@@ -5,4 +5,4 @@ class CaniModelForm(forms.ModelForm):
     class Meta:  
         model = Cani 
         fields = "__all__"  
-
+        
