@@ -31,42 +31,29 @@ def Cani_show(request):
 #modifica records 
 def Cani_edit(request,id):  
     if request.method == "POST":  
-        form = CaniModelForm(request.POST)  
+        cani = Cani.objects.get(id=id)  
+        form = CaniModelForm(request.POST, instance = cani)  
+        form.id = id
         if form.is_valid():  
-            try:  
-                form.update()  
-                return redirect('/leads/canishow/')  
-            except:  
-                pass
+             form.save()  
+        return redirect("/leads/canishow")   
+          
     else:  
         canis = Cani.objects.get(id=id)  
         form = CaniModelForm(instance = canis)  
-        
-        
-    return render(request,'caniindex.html',{'form':form})  
+        form.id = id 
+    return render(request,'caniindex2.html',{'form':form})  
 
-
-        
-   
-
-    
-
-
-
-
-def Cani_editold(request, id):  
-    canis = Cani.objects.get(id=id)  
-    return render(request,'caniedit.html', {'canis':canis})  
 
 def Cani_update(request, id):  
-    canis = Cani.objects.get(id=id)  
-    form = CaniModelForm(request.POST, instance = canis)  
-    print(form)
+    cani = Cani.objects.get(id=id)  
+    form = CaniModelForm(request.POST, instance = cani)  
+    form.id = id
     if form.is_valid():  
         form.save()  
         return redirect("/leads/canishow")  
-    print(form.errors)
-    return render(request, 'caniedit.html', {'canis': canis})  
+    
+      
     
 def Cani_destroy(request, id):  
     canis = Cani.objects.get(id=id)  
